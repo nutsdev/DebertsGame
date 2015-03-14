@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.Settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.ui.activities.GameOneVsOneActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -51,6 +52,8 @@ public class GametypeMenuFragment extends Fragment {
             return;
         } else {
             playerSettings.playerName().put(playerName);
+            GameOneVsOneActivity_.intent(this).start();
+            getActivity().finish();
             Toast.makeText(getActivity(), playerName + " start game!", Toast.LENGTH_SHORT).show();
         }
     }

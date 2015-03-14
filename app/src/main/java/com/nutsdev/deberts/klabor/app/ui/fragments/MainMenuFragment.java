@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 
 import com.nutsdev.deberts.klabor.R;
-import com.nutsdev.deberts.klabor.app.ui.activities.MainMenuActivity;
 import com.nutsdev.deberts.klabor.app.utils.NavigationHelper;
 
 import org.androidannotations.annotations.Click;
@@ -49,8 +48,10 @@ public class MainMenuFragment extends Fragment {
 
     @Click(R.id.newGame_button)
     void newGameButton_click() {
-        OnlineOfflineMenuFragment onlineOfflineMenuFragment = OnlineOfflineMenuFragment_.builder().build();
-        navigationHelper.switchFragment(onlineOfflineMenuFragment, MainMenuActivity.FragmentTransitionType_Slide);
+    /*    OnlineOfflineMenuFragment onlineOfflineMenuFragment = OnlineOfflineMenuFragment_.builder().build();
+        navigationHelper.switchFragment(onlineOfflineMenuFragment, MainMenuActivity.FragmentTransitionType_Slide); */
+        GametypeMenuFragment gametypeMenuFragment = GametypeMenuFragment_.builder().build();
+        navigationHelper.switchFragment(gametypeMenuFragment, NavigationHelper.FragmentTransitionType_Slide);
     }
 
     @Click(R.id.exit_button)

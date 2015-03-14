@@ -6,4 +6,5 @@
     <string name="enter_your_name_title">Введите ваше имя</string>
     <string name="choose_game_type">Выберите режим игры</string>
     <string name="start_game_button_title">Начать игру</string>
+    <string name="title_activity_game_one_vs_one">GameOneVsOneActivity</string>
 </resources>
