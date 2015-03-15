@@ -47,7 +47,7 @@ public class GametypeMenuFragment extends Fragment {
     void startGameButton_click() {
         String playerName = enterName_editText.getText().toString();
         if (playerName.trim().isEmpty()) {
-            Toast.makeText(getActivity(), "Player name can't be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.empty_name_error_title), Toast.LENGTH_SHORT).show();
             enterName_editText.setText("");
             return;
         } else {

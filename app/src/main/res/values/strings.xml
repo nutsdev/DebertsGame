@@ -19,5 +19,6 @@
     <string name="settings_button_title">Настройки</string>
     <string name="turn_off_ad_button_title">Отключить рекламу</string>
     <string name="exit_button_title">Выход</string>
+    <string name="empty_name_error_title">Имя игрока не может быть пустым!</string>
 
 </resources>
