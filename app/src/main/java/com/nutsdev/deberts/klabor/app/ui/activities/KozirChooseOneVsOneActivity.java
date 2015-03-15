@@ -30,16 +30,19 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     public static final int CHIRVA_SUIT = 1004;
 
     TypedArray cardDrawablesArray;
-
+    // козырь для первого круга
     @InstanceState
     Integer kolodaKozirCard;
-
+    // список всех карт по порядку
     @InstanceState
-    ArrayList<Integer> cardsArrayList = new ArrayList<>();
-
+    static ArrayList<Integer> cardsArrayList = new ArrayList<>();
+    // список всех карт после shuffle
+    @InstanceState
+    ArrayList<Integer> shuffledCardsList = new ArrayList<>();
+    // список карт игрока
     @InstanceState
     ArrayList<Integer> playerCardsList = new ArrayList<>();
-
+    // список карт противника
     @InstanceState
     ArrayList<Integer> androidCardsList = new ArrayList<>();
 
@@ -86,6 +89,28 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
             cardDrawablesArray = getResources().obtainTypedArray(R.array.cardImagesArray);
             for (int i = 0; i < cardDrawablesArray.length(); i++) {
                 cardsArrayList.add(cardDrawablesArray.getResourceId(i, 0));
+                shuffledCardsList.add(i);
+            }
+            Collections.shuffle(shuffledCardsList);
+            cardDrawablesArray.recycle();
+
+            for (int i = 0; i < 13; i++) {
+                if (i < 6)
+                    androidCardsList.add(cardsArrayList.get(shuffledCardsList.get(i)));
+                else if (i > 5 && i < 12)
+                    playerCardsList.add(cardsArrayList.get(shuffledCardsList.get(i)));
+                else
+                    kolodaKozirCard = cardsArrayList.get(shuffledCardsList.get(i));
+            }
+        }
+
+        // displaying player's cards and kozir
+        for (int i = 0; i < 6; i++) {
+            playerCards_ImageViewArray.get(i).setImageResource(playerCardsList.get(i));
+        }
+        kolodaKozir_imageView.setImageResource(kolodaKozirCard);
+        /*    for (int i = 0; i < cardDrawablesArray.length(); i++) {
+                cardsArrayList.add(cardDrawablesArray.getResourceId(i, 0));
             }
             Collections.shuffle(cardsArrayList);
             cardDrawablesArray.recycle();
@@ -105,7 +130,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         for (int i = 0; i < 6; i++) {
             playerCards_ImageViewArray.get(i).setImageResource(playerCardsList.get(i));
         }
-        kolodaKozir_imageView.setImageResource(kolodaKozirCard);
+        kolodaKozir_imageView.setImageResource(kolodaKozirCard); */
     }
 
 }
