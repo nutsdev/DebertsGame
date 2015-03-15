@@ -23,6 +23,11 @@
         <activity
             android:name=".app.ui.activities.GameOneVsOneActivity_"
             android:label="@string/title_activity_game_one_vs_one"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".app.ui.activities.KozirChooseOneVsOneActivity_"
+            android:label="@string/title_activity_kozir_choose_one_vs_one"
             android:screenOrientation="landscape">
         </activity>
     </application>

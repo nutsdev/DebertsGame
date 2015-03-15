@@ -1,0 +1,209 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nutsdev.deberts.klabor.app.ui.activities.KozirChooseOneVsOneActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout3">
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enemyStartCard1_imageView" />
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enemyStartCard2_imageView" />
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enemyStartCard3_imageView" />
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enemyStartCard4_imageView" />
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enemyStartCard5_imageView" />
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enemyStartCard6_imageView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
+
+        <ImageView
+            android:layout_marginRight="1dp"
+            android:src="@drawable/chirva_eight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startCard1_imageButton" />
+
+        <ImageView
+            android:layout_marginRight="1dp"
+            android:src="@drawable/chirva_queen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startCard2_imageButton" />
+
+        <ImageView
+            android:layout_marginRight="1dp"
+            android:src="@drawable/pika_eight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startCard3_imageButton" />
+
+        <ImageView
+            android:layout_marginRight="1dp"
+            android:src="@drawable/bubna_tuz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startCard4_imageButton" />
+
+        <ImageView
+            android:layout_marginRight="1dp"
+            android:src="@drawable/chirva_tuz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startCard5_imageButton" />
+
+        <ImageView
+            android:src="@drawable/kresta_ten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startCard6_imageButton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout2">
+
+        <Button
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_button_title"
+            android:id="@+id/play_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pass_button_title"
+            android:id="@+id/pass_button" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:id="@+id/suits_view"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bubna_suit"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:id="@+id/bubnaSuit_imageView" />
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/kresta_suit"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:id="@+id/krestaSuit_imageView" />
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chirva_suit"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:id="@+id/chirvaSuit_imageView" />
+
+        <ImageView
+            android:scaleType="fitCenter"
+            android:src="@drawable/pika_suit"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:id="@+id/pikaSuit_imageView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_toLeftOf="@+id/linearLayout2"
+        android:layout_toStartOf="@+id/linearLayout2">
+
+        <TextView
+            android:textColor="@color/black_000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/objaz_title"
+            android:id="@+id/objaz_textView" />
+
+        <TextView
+            android:textColor="@color/black_000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_turn_title" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_toRightOf="@+id/suits_view"
+        android:layout_toEndOf="@+id/suits_view">
+
+        <ImageView
+            android:src="@drawable/card_back_blue_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/pika_king"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/kolodaKozir_imageView" />
+    </FrameLayout>
+
+</RelativeLayout>
