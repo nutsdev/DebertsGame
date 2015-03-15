@@ -135,43 +135,47 @@
         android:layout_centerHorizontal="true">
 
         <ImageView
+            android:padding="10dp"
             android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/bubna_suit"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
             android:id="@+id/bubnaSuit_imageView" />
 
         <ImageView
+            android:padding="10dp"
             android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/kresta_suit"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
             android:id="@+id/krestaSuit_imageView" />
 
         <ImageView
+            android:padding="10dp"
             android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/chirva_suit"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
             android:id="@+id/chirvaSuit_imageView" />
 
         <ImageView
+            android:padding="10dp"
             android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/pika_suit"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
             android:id="@+id/pikaSuit_imageView" />
     </LinearLayout>
 

@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <Button
+        tools:visibility="visible"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Продолжить"
+        android:text="@string/continue_button_title"
         android:id="@+id/continueGame_button"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Новая игра"
+        android:text="@string/new_game_button_title"
         android:id="@+id/newGame_button"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Настройки"
+        android:text="@string/settings_button_title"
         android:id="@+id/settings_button"
         android:layout_gravity="center_horizontal" />
 
     <Button
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Отключить рекламу"
+        android:text="@string/turn_off_ad_button_title"
         android:id="@+id/adOff_button"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Выход"
+        android:text="@string/exit_button_title"
         android:id="@+id/exit_button"
         android:layout_gravity="center_horizontal" />
 

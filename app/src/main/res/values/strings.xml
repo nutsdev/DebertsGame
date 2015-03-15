@@ -14,5 +14,10 @@
     <string name="your_turn_title">Ваше слово</string>
     <string name="objaz_title">Обяз у %s</string>
     <string name="android_player_name_title">Android</string>
+    <string name="continue_button_title">Продолжить</string>
+    <string name="new_game_button_title">Новая игра</string>
+    <string name="settings_button_title">Настройки</string>
+    <string name="turn_off_ad_button_title">Отключить рекламу</string>
+    <string name="exit_button_title">Выход</string>
 
 </resources>

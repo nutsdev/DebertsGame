@@ -10,4 +10,6 @@ public interface PlayerSettings {
 
     String playerName();
 
+    boolean isSavedGameExists();
+
 }
