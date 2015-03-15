@@ -13,5 +13,6 @@
     <string name="pass_button_title">Пасс</string>
     <string name="your_turn_title">Ваше слово</string>
     <string name="objaz_title">Обяз у %s</string>
+    <string name="android_player_name_title">Android</string>
 
 </resources>

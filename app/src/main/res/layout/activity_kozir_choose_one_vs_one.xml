@@ -135,6 +135,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageView
+            android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
@@ -144,6 +145,7 @@
             android:id="@+id/bubnaSuit_imageView" />
 
         <ImageView
+            android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
@@ -153,6 +155,7 @@
             android:id="@+id/krestaSuit_imageView" />
 
         <ImageView
+            android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
@@ -162,6 +165,7 @@
             android:id="@+id/chirvaSuit_imageView" />
 
         <ImageView
+            android:clickable="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:scaleType="fitCenter"
@@ -175,7 +179,7 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout3"
         android:layout_toLeftOf="@+id/linearLayout2"
         android:layout_toStartOf="@+id/linearLayout2">
 
@@ -197,8 +201,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout3"
-        android:layout_toRightOf="@+id/suits_view"
-        android:layout_toEndOf="@+id/suits_view">
+        android:layout_toRightOf="@+id/linearLayout"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:id="@+id/frameLayout">
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical"
