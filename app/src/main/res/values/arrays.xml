@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="cardImagesArray">
+        <!-- chirva -->
+        <item>@drawable/chirva_seven</item>
+        <item>@drawable/chirva_eight</item>
+        <item>@drawable/chirva_nine</item>
+        <item>@drawable/chirva_ten</item>
+        <item>@drawable/chirva_valet</item>
+        <item>@drawable/chirva_queen</item>
+        <item>@drawable/chirva_king</item>
+        <item>@drawable/chirva_tuz</item>
+
+        <!-- pika -->
+        <item>@drawable/pika_seven</item>
+        <item>@drawable/pika_eight</item>
+        <item>@drawable/pika_nine</item>
+        <item>@drawable/pika_ten</item>
+        <item>@drawable/pika_valet</item>
+        <item>@drawable/pika_queen</item>
+        <item>@drawable/pika_king</item>
+        <item>@drawable/pika_tuz</item>
+
+        <!-- bubna -->
+        <item>@drawable/bubna_seven</item>
+        <item>@drawable/bubna_eight</item>
+        <item>@drawable/bubna_nine</item>
+        <item>@drawable/bubna_ten</item>
+        <item>@drawable/bubna_valet</item>
+        <item>@drawable/bubna_queen</item>
+        <item>@drawable/bubna_king</item>
+        <item>@drawable/bubna_tuz</item>
+
+        <!-- kresta -->
+        <item>@drawable/kresta_seven</item>
+        <item>@drawable/kresta_eight</item>
+        <item>@drawable/kresta_nine</item>
+        <item>@drawable/kresta_ten</item>
+        <item>@drawable/kresta_valet</item>
+        <item>@drawable/kresta_queen</item>
+        <item>@drawable/kresta_king</item>
+        <item>@drawable/kresta_tuz</item>
+    </array>
+
+</resources>

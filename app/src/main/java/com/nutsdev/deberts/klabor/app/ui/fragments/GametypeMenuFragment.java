@@ -54,7 +54,6 @@ public class GametypeMenuFragment extends Fragment {
             playerSettings.playerName().put(playerName);
             KozirChooseOneVsOneActivity_.intent(this).start();
             getActivity().finish();
-            Toast.makeText(getActivity(), playerName + " start game!", Toast.LENGTH_SHORT).show();
         }
     }
 
