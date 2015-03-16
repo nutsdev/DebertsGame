@@ -60,10 +60,10 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     // стартовая карта на колоде
     @InstanceState
     Integer kolodaKozirCard;
-    // список всех карт по порядку
+    // список всех карт по порядку в виде ссылок на ресурсы картинок
     @InstanceState
     ArrayList<Integer> cardsArrayList = new ArrayList<>();
-    // список всех карт после shuffle
+    // список всех карт после shuffle в виде 0, 1, 2, ... 31
     @InstanceState
     ArrayList<Integer> shuffledCardsList = new ArrayList<>();
     // список карт игрока
@@ -204,6 +204,11 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
                 else
                     kolodaKozirCard = cardsArrayList.get(shuffledCardsList.get(i));
             }
+            // todo remove this bicycle
+            for (int i = 0; i < 13; i++) {
+                shuffledCardsList.remove(i);
+            }
+            Toast.makeText(this, "size " + shuffledCardsList.size(), Toast.LENGTH_SHORT).show();
         }
     }
 

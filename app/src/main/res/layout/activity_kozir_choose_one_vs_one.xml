@@ -14,38 +14,38 @@
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/enemyStartCard1_imageView" />
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/enemyStartCard2_imageView" />
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/enemyStartCard3_imageView" />
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/enemyStartCard4_imageView" />
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/enemyStartCard5_imageView" />
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/enemyStartCard6_imageView" />
     </LinearLayout>
 
@@ -60,42 +60,42 @@
         <ImageView
             android:layout_marginRight="1dp"
             android:src="@drawable/chirva_ten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/startCard1_imageView" />
 
         <ImageView
             android:layout_marginRight="1dp"
             android:src="@drawable/bubna_ten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/startCard2_imageView" />
 
         <ImageView
             android:layout_marginRight="1dp"
             android:src="@drawable/pika_tuz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/startCard3_imageView" />
 
         <ImageView
             android:layout_marginRight="1dp"
             android:src="@drawable/bubna_tuz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/startCard4_imageView" />
 
         <ImageView
             android:layout_marginRight="1dp"
             android:src="@drawable/chirva_tuz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/startCard5_imageView" />
 
         <ImageView
             android:src="@drawable/kresta_tuz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/startCard6_imageView" />
     </LinearLayout>
 
@@ -211,15 +211,15 @@
 
         <ImageView
             android:src="@drawable/card_back_blue_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="35dp"
+            android:layout_height="50dp" />
 
         <ImageView
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             tools:src="@drawable/pika_king"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
             android:id="@+id/kolodaKozir_imageView" />
     </FrameLayout>
 
