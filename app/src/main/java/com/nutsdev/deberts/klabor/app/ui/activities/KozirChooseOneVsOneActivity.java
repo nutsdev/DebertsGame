@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
+import com.nutsdev.deberts.klabor.app.entities.Card;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 
@@ -55,6 +56,21 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @InstanceState
     String playerName;
+    // all 32 cards (shuffled)
+    @InstanceState
+    ArrayList<Card> cardsList = new ArrayList<>();
+    // player's cards
+    @InstanceState
+    ArrayList<Card> playerCardList = new ArrayList<>();
+    // android's cards
+    @InstanceState
+    ArrayList<Card> androidCardList = new ArrayList<>();
+    // else cards
+    @InstanceState
+    ArrayList<Card> remainingCardList = new ArrayList<>();
+    @InstanceState
+    // opened kozir card on first lap
+    Card firstLapKozirCard;
 
     TypedArray cardDrawablesArray;
     // стартовая карта на колоде
@@ -116,11 +132,31 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState == null) {
+
+            for (int i = 0; i < 32; i++) {
+                cardsList.add(new Card(i));
+            }
+            Collections.shuffle(cardsList);
+
+            for (int i = 0; i < 32; i++) {
+                if (i < 6)
+                    androidCardList.add(cardsList.get(i));
+                else if (i > 5 && i < 12)
+                    playerCardList.add(cardsList.get(i));
+                else if (i == 12)
+                    firstLapKozirCard = cardsList.get(i);
+                else
+                    remainingCardList.add(cardsList.get(i));
+            }
+            Toast.makeText(this, "size " + remainingCardList.size(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @AfterViews
     void initViews() {
-        firstLaunchInit();
+    //    firstLaunchInit();
 
         displayViewsSetup();
     }
