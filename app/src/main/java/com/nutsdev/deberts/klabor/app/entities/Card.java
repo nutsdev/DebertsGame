@@ -1,9 +1,11 @@
 package com.nutsdev.deberts.klabor.app.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by n1ck on 17.03.2015.
  */
-public class Card {
+public class Card implements Serializable {
 
     public static final int PIKA_SUIT = 1001;
     public static final int BUBNA_SUIT = 1002;
