@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nutsdev.deberts.klabor.R;
-import com.nutsdev.deberts.klabor.app.Settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.NavigationHelper;
 
 import org.androidannotations.annotations.AfterViews;

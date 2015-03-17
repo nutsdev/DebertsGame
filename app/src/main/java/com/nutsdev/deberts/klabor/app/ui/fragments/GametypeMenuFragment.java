@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
-import com.nutsdev.deberts.klabor.app.Settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.ui.activities.KozirChooseOneVsOneActivity_;
 
 import org.androidannotations.annotations.AfterViews;
