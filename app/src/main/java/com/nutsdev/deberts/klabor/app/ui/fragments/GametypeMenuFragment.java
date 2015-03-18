@@ -52,7 +52,7 @@ public class GametypeMenuFragment extends Fragment {
             return;
         } else {
             playerSettings.playerName().put(playerName);
-            KozirChooseOneVsOneActivity_.intent(this).start();
+            KozirChooseOneVsOneActivity_.intent(this).continueGame(false).start();
             getActivity().finish();
         }
     }

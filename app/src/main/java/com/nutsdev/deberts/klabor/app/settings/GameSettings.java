@@ -8,6 +8,13 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 @SharedPref(SharedPref.Scope.APPLICATION_DEFAULT)
 public interface GameSettings {
 
-    boolean isSavedGameExists();
+    // 0 - nothing saved, 1 - KozirChooseOneVsOneActivity, 2 - GameOneVsOneActivity
+    int isGameSaved();
+    // current razdacha begin from 0
+    int razdacha();
+    // current lap of this razdacha begin from 1
+    int currentLap();
+    // firstLapKozirCard
+    int firstLapKozirCard();
 
 }

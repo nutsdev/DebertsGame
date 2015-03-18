@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.ui.activities.KozirChooseOneVsOneActivity_;
 import com.nutsdev.deberts.klabor.app.utils.NavigationHelper;
 
 import org.androidannotations.annotations.AfterViews;
@@ -57,11 +58,18 @@ public class MainMenuFragment extends Fragment {
 
     @AfterViews
     void initViews() {
-        if (gameSettings.isSavedGameExists().getOr(false))
+        int savedGame = gameSettings.isGameSaved().getOr(0);
+        if (savedGame > 0)
             continueGame_button.setVisibility(View.VISIBLE);
     }
 
     /* clicks */
+
+    @Click(R.id.continueGame_button)
+    void continueGameButton_click() {
+        KozirChooseOneVsOneActivity_.intent(this).continueGame(true).start();
+        getActivity().finish();
+    }
 
     @Click(R.id.newGame_button)
     void newGameButton_click() {
