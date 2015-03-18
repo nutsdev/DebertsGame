@@ -34,8 +34,8 @@ public class Card implements Serializable {
 
         return -1;
     }
-
-    public String getCard() {
+// todo delete unused
+/*    public String getCard() {
         // pika
         if (value == 0)
             return "pika_seven";
@@ -109,6 +109,6 @@ public class Card implements Serializable {
             return "chirva_tuz";
 
         return null;
-    }
+    } */
 
 }

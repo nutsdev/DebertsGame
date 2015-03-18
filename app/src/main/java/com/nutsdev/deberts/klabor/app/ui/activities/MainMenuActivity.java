@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.nutsdev.deberts.klabor.R;
@@ -14,11 +13,15 @@ import com.nutsdev.deberts.klabor.app.ui.fragments.MainMenuFragment;
 import com.nutsdev.deberts.klabor.app.ui.fragments.MainMenuFragment_;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.WindowFeature;
 
 /**
  * Created by n1ck on 08.03.2015.
  */
+@Fullscreen
+@WindowFeature(Window.FEATURE_NO_TITLE)
 @EActivity(R.layout.activity_main_menu)
 public class MainMenuActivity extends ActionBarActivity {
 
@@ -35,11 +38,6 @@ public class MainMenuActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // remove title
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {

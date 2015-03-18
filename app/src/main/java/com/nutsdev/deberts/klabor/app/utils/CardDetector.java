@@ -3,8 +3,6 @@ package com.nutsdev.deberts.klabor.app.utils;
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.entities.Card;
 
-import java.util.ArrayList;
-
 /**
  * Created by n1ck on 15.03.2015.
  */
@@ -87,8 +85,8 @@ public class CardDetector implements CardsList {
         // error! shouldn't ever be this
         return -1;
     }
-
-    public static String detectCard(ArrayList<Integer> sourceArrayList, Integer needCard) {
+// todo delete unused code
+/*    public static String detectCard(ArrayList<Integer> sourceArrayList, Integer needCard) {
         for (int i = 0; i < sourceArrayList.size(); i++) {
             Integer sourceCard = sourceArrayList.get(i);
             if (sourceCard.equals(needCard)) {
@@ -167,5 +165,5 @@ public class CardDetector implements CardsList {
         }
         return null;
     }
-
+*/
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.entities.Card;
+import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
@@ -20,15 +20,19 @@ import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
+import org.androidannotations.annotations.WindowFeature;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Fullscreen
+@WindowFeature(Window.FEATURE_NO_TITLE)
 @EActivity(R.layout.activity_kozir_choose_one_vs_one)
 public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
@@ -37,6 +41,9 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Pref
     PlayerSettings_ playerSettings;
+
+    @Pref
+    GameSettings_ gameSettings;
     // номер раздачи начиная с 0 // todo переместитть в преференсы
     @InstanceState
     public static int razdacha = 0;
@@ -106,16 +113,17 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // remove title
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
             firstLaunchInit();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameSettings.isSavedGameExists().put(true);
     }
 
     @AfterViews
@@ -125,7 +133,6 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        playerSettings.isSavedGameExists().put(true);
         MainMenuActivity_.intent(this).start();
         super.onBackPressed();
     }

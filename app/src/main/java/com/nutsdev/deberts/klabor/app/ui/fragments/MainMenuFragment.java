@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nutsdev.deberts.klabor.R;
+import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.NavigationHelper;
 
@@ -23,6 +24,9 @@ public class MainMenuFragment extends Fragment {
 
     @Pref
     PlayerSettings_ playerSettings;
+
+    @Pref
+    GameSettings_ gameSettings;
 
     @ViewById
     Button continueGame_button;
@@ -53,7 +57,7 @@ public class MainMenuFragment extends Fragment {
 
     @AfterViews
     void initViews() {
-        if (playerSettings.isSavedGameExists().getOr(false))
+        if (gameSettings.isSavedGameExists().getOr(false))
             continueGame_button.setVisibility(View.VISIBLE);
     }
 
