@@ -132,13 +132,13 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         gameSettings.isGameSaved().put(1);
-        saveCardsToPrefs();
+        saveGameState();
     }
 
     @AfterViews
     void initViews() {
         if (continueGame)
-            restoreCardsFromPrefs();
+            restoreGameState();
 
         displayViewsSetup();
     }
@@ -203,10 +203,11 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     /* private methods */
 
-    private void saveCardsToPrefs() {
+    private void saveGameState() {
         boolean savedAndroid = saveCardsToPreferences(androidCardsList, ANDROID_CARDS_LIST_PREF);
         boolean savedPlayer = saveCardsToPreferences(playerCardsList, PLAYER_CARDS_LIST_PREF);
         gameSettings.firstLapKozirCard().put(firstLapKozirCard.getValue());
+        gameSettings.razdacha().put(razdacha);
     }
 
     private boolean saveCardsToPreferences(ArrayList<Card> cardsList, String listName) {
@@ -219,10 +220,11 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         return editor.commit();
     }
 
-    private void restoreCardsFromPrefs() {
+    private void restoreGameState() {
         androidCardsList = restoreCardsFromPreferences(ANDROID_CARDS_LIST_PREF);
         playerCardsList = restoreCardsFromPreferences(PLAYER_CARDS_LIST_PREF);
         firstLapKozirCard = new Card(gameSettings.firstLapKozirCard().get());
+        razdacha = gameSettings.razdacha().get();
     }
 
     private ArrayList<Card> restoreCardsFromPreferences(String listName) {
