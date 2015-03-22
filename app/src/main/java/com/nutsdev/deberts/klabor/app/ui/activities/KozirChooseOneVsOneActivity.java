@@ -59,10 +59,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     int lapTurn = 1;
     // выбранный козырь
     @InstanceState
-    int chosenKozir;
-    // козырь на первом кругу
-/*    @InstanceState
-    int firstLapKozir; */
+    int chosenKozir = -1;
 
     @InstanceState
     String playerName;
@@ -92,22 +89,13 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     Button pass_button;
 
     @ViewById
-    ImageView bubnaSuit_imageView;
-
-    @ViewById
-    ImageView krestaSuit_imageView;
-
-    @ViewById
-    ImageView chirvaSuit_imageView;
-
-    @ViewById
-    ImageView pikaSuit_imageView;
-
-    @ViewById
     TextView objaz_textView;
 
     @ViewById
     ImageView kolodaKozir_imageView;
+
+    @ViewsById({R.id.pikaSuit_imageView, R.id.bubnaSuit_imageView, R.id.krestaSuit_imageView, R.id.chirvaSuit_imageView })
+    List<ImageView> suits_ImageViewArray; // 0 - pika, 1 - bubna, 2 - kresta, 3 - chirva,
 
     @ViewsById({R.id.enemyStartCard1_imageView, R.id.enemyStartCard2_imageView, R.id.enemyStartCard3_imageView,
             R.id.enemyStartCard4_imageView, R.id.enemyStartCard5_imageView, R.id.enemyStartCard6_imageView})
@@ -158,7 +146,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
             chosenKozir = firstLapKozirCard.getSuit();
             // todo добавить возможность менять семерку на текущий козырь на первом кругу
         } else if (lapTurn == 2) {
-            if (chosenKozir == 0) {
+            if (chosenKozir == -1) {
                 Toast.makeText(this, "Выберите козырь!", Toast.LENGTH_SHORT).show();
             } else {
                 for (int i = 0; i < 7; i++) {
@@ -189,30 +177,22 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Click(R.id.bubnaSuit_imageView)
     void bubnaButton_click() {
-        chosenKozir = Card.BUBNA_SUIT;
-
-        scaleBubnaImageView();
+        selectSuit(Card.BUBNA_SUIT);
     }
 
     @Click(R.id.krestaSuit_imageView)
     void krestaButton_click() {
-        chosenKozir = Card.KRESTA_SUIT;
-
-        scaleKrestaImageView();
+        selectSuit(Card.KRESTA_SUIT);
     }
 
     @Click(R.id.chirvaSuit_imageView)
     void chirvaButton_click() {
-        chosenKozir = Card.CHIRVA_SUIT;
-
-        scaleChirvaImageView();
+        selectSuit(Card.CHIRVA_SUIT);
     }
 
     @Click(R.id.pikaSuit_imageView)
     void pikaButton_click() {
-        chosenKozir = Card.PIKA_SUIT;
-
-        scalePikaImageView();
+        selectSuit(Card.PIKA_SUIT);
     }
 
     /* private methods */
@@ -297,16 +277,16 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
             switch (chosenKozir) {
                 case Card.PIKA_SUIT:
-                    scalePikaImageView();
+                    selectSuit(Card.PIKA_SUIT);
                     break;
                 case Card.BUBNA_SUIT:
-                    scaleBubnaImageView();
+                    selectSuit(Card.BUBNA_SUIT);
                     break;
                 case Card.KRESTA_SUIT:
-                    scaleKrestaImageView();
+                    selectSuit(Card.KRESTA_SUIT);
                     break;
                 case Card.CHIRVA_SUIT:
-                    scaleChirvaImageView();
+                    selectSuit(Card.CHIRVA_SUIT);
                     break;
             }
         }
@@ -316,16 +296,16 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         suits_view.setVisibility(View.VISIBLE);
         switch (firstLapKozirCard.getSuit()) {
             case Card.PIKA_SUIT:
-                pikaSuit_imageView.setVisibility(View.GONE);
+                suits_ImageViewArray.get(Card.PIKA_SUIT).setVisibility(View.GONE);
                 break;
             case Card.BUBNA_SUIT:
-                bubnaSuit_imageView.setVisibility(View.GONE);
+                suits_ImageViewArray.get(Card.BUBNA_SUIT).setVisibility(View.GONE);
                 break;
             case Card.CHIRVA_SUIT:
-                chirvaSuit_imageView.setVisibility(View.GONE);
+                suits_ImageViewArray.get(Card.CHIRVA_SUIT).setVisibility(View.GONE);
                 break;
             case Card.KRESTA_SUIT:
-                krestaSuit_imageView.setVisibility(View.GONE);
+                suits_ImageViewArray.get(Card.KRESTA_SUIT).setVisibility(View.GONE);
                 break;
         }
 
@@ -333,60 +313,17 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
             pass_button.setVisibility(View.INVISIBLE);
     }
 
-    private void scaleBubnaImageView() {
-        bubnaSuit_imageView.setScaleX(1.35F);
-        bubnaSuit_imageView.setScaleY(1.35F);
-
-        krestaSuit_imageView.setScaleX(1);
-        krestaSuit_imageView.setScaleY(1);
-
-        chirvaSuit_imageView.setScaleX(1);
-        chirvaSuit_imageView.setScaleY(1);
-
-        pikaSuit_imageView.setScaleX(1);
-        pikaSuit_imageView.setScaleY(1);
-    }
-
-    private void scaleKrestaImageView() {
-        bubnaSuit_imageView.setScaleX(1);
-        bubnaSuit_imageView.setScaleY(1);
-
-        krestaSuit_imageView.setScaleX(1.5F);
-        krestaSuit_imageView.setScaleY(1.5F);
-
-        chirvaSuit_imageView.setScaleX(1);
-        chirvaSuit_imageView.setScaleY(1);
-
-        pikaSuit_imageView.setScaleX(1);
-        pikaSuit_imageView.setScaleY(1);
-    }
-
-    private void scaleChirvaImageView() {
-        bubnaSuit_imageView.setScaleX(1);
-        bubnaSuit_imageView.setScaleY(1);
-
-        krestaSuit_imageView.setScaleX(1);
-        krestaSuit_imageView.setScaleY(1);
-
-        chirvaSuit_imageView.setScaleX(1.4F);
-        chirvaSuit_imageView.setScaleY(1.4F);
-
-        pikaSuit_imageView.setScaleX(1);
-        pikaSuit_imageView.setScaleY(1);
-    }
-
-    private void scalePikaImageView() {
-        bubnaSuit_imageView.setScaleX(1);
-        bubnaSuit_imageView.setScaleY(1);
-
-        krestaSuit_imageView.setScaleX(1);
-        krestaSuit_imageView.setScaleY(1);
-
-        chirvaSuit_imageView.setScaleX(1);
-        chirvaSuit_imageView.setScaleY(1);
-
-        pikaSuit_imageView.setScaleX(1.35F);
-        pikaSuit_imageView.setScaleY(1.35F);
+    private void selectSuit(int position) {
+        for (int i = 0; i < 4; i++) {
+            if (i == position) {
+                suits_ImageViewArray.get(position).setScaleX(1.5f);
+                suits_ImageViewArray.get(position).setScaleY(1.5f);
+            } else {
+                suits_ImageViewArray.get(i).setScaleX(1);
+                suits_ImageViewArray.get(i).setScaleY(1);
+            }
+            chosenKozir = position;
+        }
     }
 
 }

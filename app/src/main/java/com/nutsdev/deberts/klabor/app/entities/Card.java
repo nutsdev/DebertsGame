@@ -7,10 +7,10 @@ import java.io.Serializable;
  */
 public class Card implements Serializable {
 
-    public static final int PIKA_SUIT = 1001;
-    public static final int BUBNA_SUIT = 1002;
-    public static final int KRESTA_SUIT = 1003;
-    public static final int CHIRVA_SUIT = 1004;
+    public static final int PIKA_SUIT = 0;
+    public static final int BUBNA_SUIT = 1;
+    public static final int KRESTA_SUIT = 2;
+    public static final int CHIRVA_SUIT = 3;
 
     private int value; // value of card from 0 to 31
 
