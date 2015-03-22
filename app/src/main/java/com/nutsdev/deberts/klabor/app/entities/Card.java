@@ -12,7 +12,7 @@ public class Card implements Serializable {
     public static final int KRESTA_SUIT = 1003;
     public static final int CHIRVA_SUIT = 1004;
 
-    private int value; // value from 0 to 31
+    private int value; // value of card from 0 to 31
 
     public Card(int value) {
         this.value = value;

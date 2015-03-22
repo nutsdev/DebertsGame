@@ -40,13 +40,12 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     public static final String ANDROID_CARDS_LIST_PREF = "androidCardsList";
     public static final String PLAYER_CARDS_LIST_PREF = "playerCardsList";
+    public static final String REMAINING_CARDS_LIST_PREF = "remainingCardsList";
 
-    // todo remove on release
-    public static final boolean isDebug = true;
+    public static final boolean isDebug = true; // todo remove on release
 
     @Pref
     PlayerSettings_ playerSettings;
-
     @Pref
     GameSettings_ gameSettings;
 
@@ -54,7 +53,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     boolean continueGame;
     // номер раздачи начиная с 0 // todo переместитть в преференсы
     @InstanceState
-    public static int razdacha = 0;
+    int razdacha = 0;
     // какой круг слов 1 или 2
     @InstanceState
     int lapTurn = 1;
@@ -62,8 +61,8 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     @InstanceState
     int chosenKozir;
     // козырь на первом кругу
-    @InstanceState
-    int firstLapKozir;
+/*    @InstanceState
+    int firstLapKozir; */
 
     @InstanceState
     String playerName;
@@ -82,6 +81,8 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     // opened kozir card on first lap
     @InstanceState
     Card firstLapKozirCard;
+    @InstanceState
+    Card kolodaLastCard;
 
 
     @ViewById
@@ -128,19 +129,19 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        gameSettings.isGameSaved().put(1);
-        saveGameState();
-    }
-
     @AfterViews
     void initViews() {
         if (continueGame)
             restoreGameState();
 
         displayViewsSetup();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameSettings.isGameSaved().put(1);
+        saveGameState();
     }
 
     @Override
@@ -159,6 +160,19 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         } else if (lapTurn == 2) {
             if (chosenKozir == 0) {
                 Toast.makeText(this, "Выберите козырь!", Toast.LENGTH_SHORT).show();
+            } else {
+                for (int i = 0; i < 7; i++) {
+                    if (i < 3)
+                        androidCardsList.add(remainingCardsList.get(i));
+                    else if (i > 2 && i < 6)
+                        playerCardsList.add(remainingCardsList.get(i));
+                    else
+                        kolodaLastCard = remainingCardsList.get(i);
+                }
+                GameOneVsOneActivity_.intent(this).androidCardsList(androidCardsList).playerCardsList(playerCardsList)
+                        .firstLapKozirCard(firstLapKozirCard).chosenKozir(chosenKozir).razdacha(razdacha).currentLap(lapTurn)
+                        .kolodaLastCard(kolodaLastCard).whosPlaying(1).playerName(playerName).start();
+                finish();
             }
         }
     }
@@ -206,8 +220,10 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     private void saveGameState() {
         boolean savedAndroid = saveCardsToPreferences(androidCardsList, ANDROID_CARDS_LIST_PREF);
         boolean savedPlayer = saveCardsToPreferences(playerCardsList, PLAYER_CARDS_LIST_PREF);
+        boolean savedRemainingCards = saveCardsToPreferences(remainingCardsList, REMAINING_CARDS_LIST_PREF);
         gameSettings.firstLapKozirCard().put(firstLapKozirCard.getValue());
         gameSettings.razdacha().put(razdacha);
+        gameSettings.currentLap().put(lapTurn);
     }
 
     private boolean saveCardsToPreferences(ArrayList<Card> cardsList, String listName) {
@@ -223,8 +239,10 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     private void restoreGameState() {
         androidCardsList = restoreCardsFromPreferences(ANDROID_CARDS_LIST_PREF);
         playerCardsList = restoreCardsFromPreferences(PLAYER_CARDS_LIST_PREF);
+        remainingCardsList = restoreCardsFromPreferences(REMAINING_CARDS_LIST_PREF);
         firstLapKozirCard = new Card(gameSettings.firstLapKozirCard().get());
         razdacha = gameSettings.razdacha().get();
+        lapTurn = gameSettings.currentLap().get();
     }
 
     private ArrayList<Card> restoreCardsFromPreferences(String listName) {

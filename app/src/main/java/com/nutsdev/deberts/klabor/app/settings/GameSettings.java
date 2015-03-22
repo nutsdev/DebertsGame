@@ -16,5 +16,7 @@ public interface GameSettings {
     int currentLap();
     // firstLapKozirCard
     int firstLapKozirCard();
+    // which lap of words in ChooseKozirActivity
+    //int lapTurn();
 
 }

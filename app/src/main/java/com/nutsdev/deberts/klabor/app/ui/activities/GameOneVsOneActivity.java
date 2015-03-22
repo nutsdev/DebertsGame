@@ -3,23 +3,201 @@ package com.nutsdev.deberts.klabor.app.ui.activities;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nutsdev.deberts.klabor.R;
+import com.nutsdev.deberts.klabor.app.entities.Card;
+import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
+import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.utils.CardDetector;
+import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.ViewsById;
 import org.androidannotations.annotations.WindowFeature;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Fullscreen
 @WindowFeature(Window.FEATURE_NO_TITLE)
 @EActivity(R.layout.activity_game_one_vs_one)
 public class GameOneVsOneActivity extends ActionBarActivity {
 
+    public static final boolean isDebug = true; // todo remove on release
+
+    @Pref
+    PlayerSettings_ playerSettings;
+    @Pref
+    GameSettings_ gameSettings;
+
+    @Extra
+    String playerName;
+    @Extra
+    int whosPlaying; // 0 - android, 1 - player
+    @Extra
+    int currentLap;
+    @Extra
+    int razdacha;
+    @Extra
+    int chosenKozir;
+    @Extra
+    Card firstLapKozirCard;
+    @Extra
+    Card kolodaLastCard;
+    @Extra
+    ArrayList<Card> playerCardsList;
+    @Extra
+    ArrayList<Card> androidCardsList;
+
+    @InstanceState
+    Card selectedCard;
+
+    @ViewById
+    TextView whosPlaying_textView;
+    @ViewById
+    Button action_button;
+
+    @ViewById
+    ImageView chosenKozir_imageView;
+    @ViewById
+    ImageView playerTurnCard_imageView;
+    @ViewById
+    ImageView androidTurnCard_imageView;
+    @ViewById
+    ImageView kolodaLastCard_imageView;
+    @ViewById
+    ImageView firstLapKozirCard_imageView;
+
+    @ViewsById({R.id.enemyCard1_imageView, R.id.enemyCard2_imageView, R.id.enemyCard3_imageView, R.id.enemyCard4_imageView,
+            R.id.enemyCard5_imageView, R.id.enemyCard6_imageView, R.id.enemyCard7_imageView, R.id.enemyCard8_imageView,
+            R.id.enemyCard9_imageView })
+    List<ImageView> androidCards_ImageViewArray;
+
+    @ViewsById({R.id.playerCard1_imageView, R.id.playerCard2_imageView, R.id.playerCard3_imageView, R.id.playerCard4_imageView,
+            R.id.playerCard5_imageView, R.id.playerCard6_imageView, R.id.playerCard7_imageView, R.id.playerCard8_imageView,
+            R.id.playerCard9_imageView })
+    List<ImageView> playerCards_ImageViewArray;
+
     /* lifecycle */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @AfterViews
+    void initViews() {
+        displayViewsSetup();
+    }
+
+    /* clicks */
+
+    @Click(R.id.playerCard1_imageView)
+    void playerCard1_click() {
+        selectCard(0);
+    }
+
+    @Click(R.id.playerCard2_imageView)
+    void playerCard2_click() {
+        selectCard(1);
+    }
+
+    @Click(R.id.playerCard3_imageView)
+    void playerCard3_click() {
+        selectCard(2);
+    }
+
+    @Click(R.id.playerCard4_imageView)
+    void playerCard4_click() {
+        selectCard(3);
+    }
+
+    @Click(R.id.playerCard5_imageView)
+    void playerCard5_click() {
+        selectCard(4);
+    }
+
+    @Click(R.id.playerCard6_imageView)
+    void playerCard6_click() {
+        selectCard(5);
+    }
+
+    @Click(R.id.playerCard7_imageView)
+    void playerCard7_click() {
+        selectCard(6);
+    }
+
+    @Click(R.id.playerCard8_imageView)
+    void playerCard8_click() {
+        selectCard(7);
+    }
+
+    @Click(R.id.playerCard9_imageView)
+    void playerCard9_click() {
+        selectCard(8);
+    }
+
+    /* private methods */
+
+    private void displayViewsSetup() {
+        // sorts cards by suits
+        Collections.sort(androidCardsList, new CardsComparator());
+        Collections.sort(playerCardsList, new CardsComparator());
+
+        // displaying player's cards and kozir
+        for (int i = 0; i < 9; i++) {
+            playerCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(playerCardsList.get(i)));
+
+            if (isDebug)
+                androidCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(androidCardsList.get(i)));
+        }
+        firstLapKozirCard_imageView.setImageResource(CardDetector.getCardDrawable(firstLapKozirCard));
+        kolodaLastCard_imageView.setImageResource(CardDetector.getCardDrawable(kolodaLastCard));
+
+        switch (chosenKozir) {
+            case Card.PIKA_SUIT:
+                chosenKozir_imageView.setImageResource(R.drawable.pika_suit);
+                break;
+            case Card.BUBNA_SUIT:
+                chosenKozir_imageView.setImageResource(R.drawable.bubna_suit);;
+                break;
+            case Card.KRESTA_SUIT:
+                chosenKozir_imageView.setImageResource(R.drawable.kresta_suit);;
+                break;
+            case Card.CHIRVA_SUIT:
+                chosenKozir_imageView.setImageResource(R.drawable.chirva_suit);;
+                break;
+        }
+
+        if (whosPlaying == 0)
+            whosPlaying_textView.setText(getString(R.string.playing_is_title, getString(R.string.android_player_name_title)));
+        else
+            whosPlaying_textView.setText(getString(R.string.playing_is_title, playerName));
+    }
+
+    private void selectCard(int position) {
+        for (int i = 0; i < 9; i++) {
+            if (i == position) {
+                playerCards_ImageViewArray.get(position).setScaleX(1.35f);
+                playerCards_ImageViewArray.get(position).setScaleY(1.35f);
+                selectedCard = playerCardsList.get(position);
+            } else {
+                playerCards_ImageViewArray.get(i).setScaleX(1);
+                playerCards_ImageViewArray.get(i).setScaleY(1);
+            }
+        }
+    //    Toast.makeText(this, selectedCard.getValue() + "", Toast.LENGTH_SHORT).show();
     }
 
 }

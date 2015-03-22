@@ -77,54 +77,89 @@
         android:id="@+id/linearLayout4">
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/chirva_ten"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard1_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/bubna_ten"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard2_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/pika_tuz"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard3_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/bubna_tuz"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard4_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/chirva_tuz"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard5_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/kresta_tuz"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard6_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/kresta_ten"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard7_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_marginRight="1dp"
             android:src="@drawable/pika_ten"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerCard8_imageView" />
 
         <ImageView
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:clickable="true"
             android:src="@drawable/kresta_valet"
             android:layout_width="35dp"
             android:layout_height="50dp"
@@ -155,7 +190,7 @@
         android:layout_above="@+id/linearLayout4">
 
         <ImageView
-            android:src="@drawable/pika_queen"
+            tools:src="@drawable/pika_queen"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/playerTurnCard_imageView"
@@ -163,10 +198,10 @@
             android:layout_centerHorizontal="true" />
 
         <ImageView
-            android:src="@drawable/pika_seven"
+            tools:src="@drawable/pika_seven"
             android:layout_width="35dp"
             android:layout_height="50dp"
-            android:id="@+id/enemyTurnCard_imageView"
+            android:id="@+id/androidTurnCard_imageView"
             android:layout_above="@+id/playerTurnCard_imageView"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
@@ -198,10 +233,10 @@
                 android:layout_marginLeft="5dp"
                 android:clickable="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/chirva_suit"
+                tools:src="@drawable/chirva_suit"
                 android:layout_width="20dp"
                 android:layout_height="30dp"
-                android:id="@+id/currentKozir_imageView" />
+                android:id="@+id/chosenKozir_imageView" />
         </LinearLayout>
 
         <TextView
@@ -224,7 +259,7 @@
             tools:src="@drawable/chirva_king"
             android:layout_width="35dp"
             android:layout_height="50dp"
-            android:id="@+id/lastCard_imageView" />
+            android:id="@+id/kolodaLastCard_imageView" />
 
         <ImageView
             tools:src="@drawable/pika_king"
