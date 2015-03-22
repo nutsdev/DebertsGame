@@ -2,10 +2,12 @@ package com.nutsdev.deberts.klabor.app.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.entities.Card;
@@ -44,7 +46,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     @Extra
     int whosPlaying; // 0 - android, 1 - player
     @InstanceState
-    int currentLap;
+    int currentLap = 0;
     @Extra
     int razdacha;
     @Extra
@@ -58,6 +60,8 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     @Extra
     ArrayList<Card> androidCardsList;
 
+    @InstanceState
+    int selectedCardInt = -1;
     @InstanceState
     Card selectedCard;
     @InstanceState
@@ -121,6 +125,21 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     }
 
     /* clicks */
+
+    @Click(R.id.action_button)
+    void actionButton_click() {
+        // todo обьеденить функционал походить и отбой
+        if (selectedCard != null) {
+            currentLap++;
+            playerCardsList.remove(selectedCard);
+            playerTurnCard_imageView.setImageResource(CardDetector.getCardDrawable(selectedCard));
+
+            selectedCard = null;
+            selectedCardInt = -1;
+        } else {
+            Toast.makeText(this, "Выберите карту, которой хотите походить!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Click(R.id.playerCard1_imageView)
     void playerCard1_click() {
@@ -199,10 +218,13 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         Collections.sort(androidCardsList, new CardsComparator());
         Collections.sort(playerCardsList, new CardsComparator());
 
+        int cardArrayLength = detectCardArrayLength();
         // displaying player's cards and kozir
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < cardArrayLength; i++) {
+            playerCards_ImageViewArray.get(i).setVisibility(View.VISIBLE);
             playerCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(playerCardsList.get(i)));
 
+            androidCards_ImageViewArray.get(i).setVisibility(View.VISIBLE);
             if (isDebug)
                 androidCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(androidCardsList.get(i)));
         }
@@ -224,24 +246,50 @@ public class GameOneVsOneActivity extends ActionBarActivity {
                 break;
         }
 
+        if (selectedCardInt != -1)
+            selectCard(selectedCardInt);
+
         if (whosPlaying == 0)
             whosPlaying_textView.setText(getString(R.string.playing_is_title, getString(R.string.android_player_name_title)));
         else
             whosPlaying_textView.setText(getString(R.string.playing_is_title, playerName));
     }
 
+    private int detectCardArrayLength() { // todo продумать шаг currentLap 1 или 2
+        if (currentLap == 0)
+            return 9;
+        else if (currentLap == 1)
+            return 8;
+        else if (currentLap == 2)
+            return 7;
+        else if (currentLap == 3)
+            return 6;
+        else if (currentLap == 4)
+            return 5;
+        else if (currentLap == 5)
+            return 4;
+        else if (currentLap == 6)
+            return 3;
+        else if (currentLap == 7)
+            return 2;
+        else if (currentLap == 8)
+            return 1;
+
+        return 9;
+    }
+
     private void selectCard(int position) {
+        selectedCardInt = position;
         for (int i = 0; i < 9; i++) {
             if (i == position) {
-                playerCards_ImageViewArray.get(position).setScaleX(1.35f);
-                playerCards_ImageViewArray.get(position).setScaleY(1.35f);
+                playerCards_ImageViewArray.get(position).setScaleX(1.5f);
+                playerCards_ImageViewArray.get(position).setScaleY(1.5f);
                 selectedCard = playerCardsList.get(position);
             } else {
                 playerCards_ImageViewArray.get(i).setScaleX(1);
                 playerCards_ImageViewArray.get(i).setScaleY(1);
             }
         }
-    //    Toast.makeText(this, selectedCard.getValue() + "", Toast.LENGTH_SHORT).show();
     }
 
 }

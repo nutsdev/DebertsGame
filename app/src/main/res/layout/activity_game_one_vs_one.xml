@@ -13,54 +13,72 @@
         android:id="@+id/linearLayout5">
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard1_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard2_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard3_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard4_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard5_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard6_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard7_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
             android:id="@+id/enemyCard8_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:src="@drawable/card_back_blue_vertical_right"
             android:layout_width="35dp"
             android:layout_height="50dp"
@@ -77,6 +95,8 @@
         android:id="@+id/linearLayout4">
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -87,6 +107,8 @@
             android:id="@+id/playerCard1_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -107,6 +129,8 @@
             android:id="@+id/playerCard3_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -117,6 +141,8 @@
             android:id="@+id/playerCard4_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -127,6 +153,8 @@
             android:id="@+id/playerCard5_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -137,6 +165,8 @@
             android:id="@+id/playerCard6_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -147,6 +177,8 @@
             android:id="@+id/playerCard7_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"
@@ -157,6 +189,8 @@
             android:id="@+id/playerCard8_imageView" />
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:clickable="true"

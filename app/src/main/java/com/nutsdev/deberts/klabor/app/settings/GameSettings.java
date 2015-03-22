@@ -13,7 +13,7 @@ public interface GameSettings {
     int isGameSaved();
     // current razdacha begin from 0
     int razdacha();
-    // current lap of this razdacha begin from 1
+    // current lap of this razdacha begin from 0
     int currentLap();
     // firstLapKozirCard or seven of the same suit
     int firstLapKozirCard();
