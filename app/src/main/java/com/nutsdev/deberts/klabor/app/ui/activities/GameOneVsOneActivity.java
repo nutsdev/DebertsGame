@@ -13,6 +13,7 @@ import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
+import com.nutsdev.deberts.klabor.app.utils.GameHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -42,7 +43,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     GameSettings_ gameSettings;
 
     @Extra
-    String playerName;
+    boolean continueGame;
     @Extra
     int whosPlaying; // 0 - android, 1 - player
     @Extra
@@ -62,6 +63,8 @@ public class GameOneVsOneActivity extends ActionBarActivity {
 
     @InstanceState
     Card selectedCard;
+    @InstanceState
+    String playerName;
 
     @ViewById
     TextView whosPlaying_textView;
@@ -94,11 +97,30 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (playerName == null)
+            playerName = playerSettings.playerName().get();
     }
 
     @AfterViews
     void initViews() {
+        if (continueGame)
+            restoreGameState();
+
         displayViewsSetup();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        saveGameState();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MainMenuActivity_.intent(this).start();
+        super.onBackPressed();
     }
 
     /* clicks */
@@ -149,6 +171,31 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     }
 
     /* private methods */
+
+    private void saveGameState() {
+        GameHelper.saveCardsToPreferences(this, androidCardsList, GameHelper.ANDROID_CARDS_LIST_PREF);
+        GameHelper.saveCardsToPreferences(this, playerCardsList, GameHelper.PLAYER_CARDS_LIST_PREF);
+
+        gameSettings.firstLapKozirCard().put(firstLapKozirCard.getValue());
+        gameSettings.kolodaLastCard().put(kolodaLastCard.getValue());
+        gameSettings.razdacha().put(razdacha);
+        gameSettings.currentLap().put(currentLap);
+        gameSettings.whosPlaying().put(whosPlaying);
+        gameSettings.chosenKozir().put(chosenKozir);
+        gameSettings.isGameSaved().put(2);
+    }
+
+    private void restoreGameState() {
+        androidCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.ANDROID_CARDS_LIST_PREF);
+        playerCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.PLAYER_CARDS_LIST_PREF);
+
+        firstLapKozirCard = new Card(gameSettings.firstLapKozirCard().get());
+        kolodaLastCard = new Card(gameSettings.kolodaLastCard().get());
+        razdacha = gameSettings.razdacha().get();
+        currentLap = gameSettings.currentLap().get();
+        whosPlaying = gameSettings.whosPlaying().get();
+        chosenKozir = gameSettings.chosenKozir().get();
+    }
 
     private void displayViewsSetup() {
         // sorts cards by suits

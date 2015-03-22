@@ -14,8 +14,14 @@ public interface GameSettings {
     int razdacha();
     // current lap of this razdacha begin from 1
     int currentLap();
-    // firstLapKozirCard
+    // firstLapKozirCard or seven of the same suit
     int firstLapKozirCard();
+    // перевернутая последняя карта
+    int kolodaLastCard();
+    // who is playing 0 - android, 1 - player
+    int whosPlaying();
+    // chosen kozir
+    int chosenKozir();
     // which lap of words in ChooseKozirActivity
     //int lapTurn();
 

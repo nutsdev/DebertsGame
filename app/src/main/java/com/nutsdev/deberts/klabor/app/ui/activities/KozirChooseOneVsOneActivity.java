@@ -1,6 +1,5 @@
 package com.nutsdev.deberts.klabor.app.ui.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.entities.Card;
+import com.nutsdev.deberts.klabor.app.utils.GameHelper;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
@@ -38,9 +38,9 @@ import java.util.List;
 @EActivity(R.layout.activity_kozir_choose_one_vs_one)
 public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
-    public static final String ANDROID_CARDS_LIST_PREF = "androidCardsList";
+/*    public static final String ANDROID_CARDS_LIST_PREF = "androidCardsList";
     public static final String PLAYER_CARDS_LIST_PREF = "playerCardsList";
-    public static final String REMAINING_CARDS_LIST_PREF = "remainingCardsList";
+    public static final String REMAINING_CARDS_LIST_PREF = "remainingCardsList"; */
 
     public static final boolean isDebug = true; // todo remove on release
 
@@ -128,7 +128,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        gameSettings.isGameSaved().put(1);
+
         saveGameState();
     }
 
@@ -159,7 +159,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
                 }
                 GameOneVsOneActivity_.intent(this).androidCardsList(androidCardsList).playerCardsList(playerCardsList)
                         .firstLapKozirCard(firstLapKozirCard).chosenKozir(chosenKozir).razdacha(razdacha).currentLap(lapTurn)
-                        .kolodaLastCard(kolodaLastCard).whosPlaying(1).playerName(playerName).start();
+                        .kolodaLastCard(kolodaLastCard).whosPlaying(1).start();
                 finish();
             }
         }
@@ -198,40 +198,24 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     /* private methods */
 
     private void saveGameState() {
-        boolean savedAndroid = saveCardsToPreferences(androidCardsList, ANDROID_CARDS_LIST_PREF);
-        boolean savedPlayer = saveCardsToPreferences(playerCardsList, PLAYER_CARDS_LIST_PREF);
-        boolean savedRemainingCards = saveCardsToPreferences(remainingCardsList, REMAINING_CARDS_LIST_PREF);
+        GameHelper.saveCardsToPreferences(this, androidCardsList, GameHelper.ANDROID_CARDS_LIST_PREF);
+        GameHelper.saveCardsToPreferences(this, playerCardsList, GameHelper.PLAYER_CARDS_LIST_PREF);
+        GameHelper.saveCardsToPreferences(this, remainingCardsList, GameHelper.REMAINING_CARDS_LIST_PREF);
+
         gameSettings.firstLapKozirCard().put(firstLapKozirCard.getValue());
         gameSettings.razdacha().put(razdacha);
         gameSettings.currentLap().put(lapTurn);
-    }
-
-    private boolean saveCardsToPreferences(ArrayList<Card> cardsList, String listName) {
-        SharedPreferences prefs = getSharedPreferences(listName, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.putInt(listName + "_size", cardsList.size());
-        for (int i = 0; i < cardsList.size(); i++)
-            editor.putInt(listName + "_" + i, cardsList.get(i).getValue());
-        return editor.commit();
+        gameSettings.isGameSaved().put(1);
     }
 
     private void restoreGameState() {
-        androidCardsList = restoreCardsFromPreferences(ANDROID_CARDS_LIST_PREF);
-        playerCardsList = restoreCardsFromPreferences(PLAYER_CARDS_LIST_PREF);
-        remainingCardsList = restoreCardsFromPreferences(REMAINING_CARDS_LIST_PREF);
+        androidCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.ANDROID_CARDS_LIST_PREF);
+        playerCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.PLAYER_CARDS_LIST_PREF);
+        remainingCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.REMAINING_CARDS_LIST_PREF);
+
         firstLapKozirCard = new Card(gameSettings.firstLapKozirCard().get());
         razdacha = gameSettings.razdacha().get();
         lapTurn = gameSettings.currentLap().get();
-    }
-
-    private ArrayList<Card> restoreCardsFromPreferences(String listName) {
-        SharedPreferences prefs = getSharedPreferences(listName, MODE_PRIVATE);
-        int size = prefs.getInt(listName + "_size", -1);
-        ArrayList<Card> cardsList = new ArrayList<>();
-        for (int i = 0; i < size; i++)
-            cardsList.add(new Card(prefs.getInt(listName + "_" + i, -1)));
-        return cardsList;
     }
 
     private void firstLaunchInit() {

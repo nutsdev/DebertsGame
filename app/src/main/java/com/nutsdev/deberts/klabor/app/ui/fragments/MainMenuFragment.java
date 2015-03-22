@@ -8,12 +8,15 @@ import android.widget.Button;
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.ui.activities.GameOneVsOneActivity_;
 import com.nutsdev.deberts.klabor.app.ui.activities.KozirChooseOneVsOneActivity_;
+import com.nutsdev.deberts.klabor.app.utils.GameHelper;
 import com.nutsdev.deberts.klabor.app.utils.NavigationHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -22,6 +25,9 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  */
 @EFragment(R.layout.fragment_main_menu)
 public class MainMenuFragment extends Fragment {
+
+    @InstanceState
+    int savedGame;
 
     @Pref
     PlayerSettings_ playerSettings;
@@ -54,11 +60,11 @@ public class MainMenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         navigationHelper = NavigationHelper.create(this);
+        savedGame = gameSettings.isGameSaved().getOr(0);
     }
 
     @AfterViews
     void initViews() {
-        int savedGame = gameSettings.isGameSaved().getOr(0);
         if (savedGame > 0)
             continueGame_button.setVisibility(View.VISIBLE);
     }
@@ -67,7 +73,10 @@ public class MainMenuFragment extends Fragment {
 
     @Click(R.id.continueGame_button)
     void continueGameButton_click() {
-        KozirChooseOneVsOneActivity_.intent(this).continueGame(true).start();
+        if (savedGame == GameHelper.KOZIR_CHOOSE_ONE_VS_ONE_STATE)
+            KozirChooseOneVsOneActivity_.intent(this).continueGame(true).start();
+        else if (savedGame == GameHelper.GAME_ONE_VS_ONE_STATE)
+            GameOneVsOneActivity_.intent(this).continueGame(true).start();
         getActivity().finish();
     }
 
