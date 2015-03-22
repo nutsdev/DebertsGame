@@ -8,6 +8,7 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 @SharedPref(SharedPref.Scope.APPLICATION_DEFAULT)
 public interface GameSettings {
 
+    String playerName();
     // 0 - nothing saved, 1 - KozirChooseOneVsOneActivity, 2 - GameOneVsOneActivity
     int isGameSaved();
     // current razdacha begin from 0

@@ -7,7 +7,6 @@ import android.widget.Button;
 
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
-import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.ui.activities.GameOneVsOneActivity_;
 import com.nutsdev.deberts.klabor.app.ui.activities.KozirChooseOneVsOneActivity_;
 import com.nutsdev.deberts.klabor.app.utils.GameHelper;
@@ -28,9 +27,6 @@ public class MainMenuFragment extends Fragment {
 
     @InstanceState
     int savedGame;
-
-    @Pref
-    PlayerSettings_ playerSettings;
 
     @Pref
     GameSettings_ gameSettings;
@@ -77,6 +73,7 @@ public class MainMenuFragment extends Fragment {
             KozirChooseOneVsOneActivity_.intent(this).continueGame(true).start();
         else if (savedGame == GameHelper.GAME_ONE_VS_ONE_STATE)
             GameOneVsOneActivity_.intent(this).continueGame(true).start();
+
         getActivity().finish();
     }
 

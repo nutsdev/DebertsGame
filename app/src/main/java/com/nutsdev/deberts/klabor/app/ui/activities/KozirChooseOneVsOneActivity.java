@@ -12,11 +12,10 @@ import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.entities.Card;
-import com.nutsdev.deberts.klabor.app.utils.GameHelper;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
-import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
+import com.nutsdev.deberts.klabor.app.utils.GameHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -38,20 +37,14 @@ import java.util.List;
 @EActivity(R.layout.activity_kozir_choose_one_vs_one)
 public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
-/*    public static final String ANDROID_CARDS_LIST_PREF = "androidCardsList";
-    public static final String PLAYER_CARDS_LIST_PREF = "playerCardsList";
-    public static final String REMAINING_CARDS_LIST_PREF = "remainingCardsList"; */
-
     public static final boolean isDebug = true; // todo remove on release
 
-    @Pref
-    PlayerSettings_ playerSettings;
     @Pref
     GameSettings_ gameSettings;
 
     @Extra
     boolean continueGame;
-    // номер раздачи начиная с 0 // todo переместитть в преференсы
+    // номер раздачи начиная с 0
     @InstanceState
     int razdacha = 0;
     // какой круг слов 1 или 2
@@ -250,7 +243,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         }
         kolodaKozir_imageView.setImageResource(CardDetector.getCardDrawable(firstLapKozirCard));
         // display who must play
-        playerName = playerSettings.playerName().get();
+        playerName = gameSettings.playerName().get();
         if (razdacha % 2 == 0)
             objaz_textView.setText(getString(R.string.objaz_title, playerName));
         else

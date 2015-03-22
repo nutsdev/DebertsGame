@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.nutsdev.deberts.klabor.R;
 import com.nutsdev.deberts.klabor.app.entities.Card;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
-import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
 import com.nutsdev.deberts.klabor.app.utils.GameHelper;
@@ -37,8 +36,6 @@ public class GameOneVsOneActivity extends ActionBarActivity {
 
     public static final boolean isDebug = true; // todo remove on release
 
-    @Pref
-    PlayerSettings_ playerSettings;
     @Pref
     GameSettings_ gameSettings;
 
@@ -99,7 +96,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         if (playerName == null)
-            playerName = playerSettings.playerName().get();
+            playerName = gameSettings.playerName().get();
     }
 
     @AfterViews

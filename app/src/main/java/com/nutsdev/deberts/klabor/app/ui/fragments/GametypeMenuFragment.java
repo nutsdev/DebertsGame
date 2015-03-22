@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nutsdev.deberts.klabor.R;
-import com.nutsdev.deberts.klabor.app.settings.PlayerSettings_;
+import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.ui.activities.KozirChooseOneVsOneActivity_;
 
 import org.androidannotations.annotations.AfterViews;
@@ -22,7 +22,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 public class GametypeMenuFragment extends Fragment {
 
     @Pref
-    PlayerSettings_ playerSettings;
+    GameSettings_ gameSettings;
 
     @ViewById
     Button startGame_button;
@@ -35,7 +35,7 @@ public class GametypeMenuFragment extends Fragment {
 
     @AfterViews
     void initViews() {
-        String playerName = playerSettings.playerName().get();
+        String playerName = gameSettings.playerName().get();
         if (!playerName.trim().isEmpty()) {
             enterName_editText.setText(playerName);
         }
@@ -51,7 +51,7 @@ public class GametypeMenuFragment extends Fragment {
             enterName_editText.setText("");
             return;
         } else {
-            playerSettings.playerName().put(playerName);
+            gameSettings.playerName().put(playerName);
             KozirChooseOneVsOneActivity_.intent(this).continueGame(false).start();
             getActivity().finish();
         }
