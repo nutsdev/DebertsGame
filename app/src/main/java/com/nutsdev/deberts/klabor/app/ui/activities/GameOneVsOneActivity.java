@@ -43,7 +43,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     boolean continueGame;
     @Extra
     int whosPlaying; // 0 - android, 1 - player
-    @Extra
+    @InstanceState
     int currentLap;
     @Extra
     int razdacha;

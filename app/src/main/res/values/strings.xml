@@ -11,7 +11,7 @@
     <string name="title_activity_kozir_choose_one_vs_one">KozirChooseOneVsOneActivity</string>
     <string name="play_button_title">Играю</string>
     <string name="pass_button_title">Пасс</string>
-    <string name="your_turn_title">Ваше слово</string>
+    <string name="your_word_title">Ваше слово</string>
     <string name="objaz_title">Обяз у %s</string>
     <string name="android_player_name_title">Android</string>
     <string name="continue_button_title">Продолжить</string>
@@ -23,5 +23,6 @@
     <string name="pohodit_button_title">Походить</string>
     <string name="kozir_title">Козырь</string>
     <string name="playing_is_title">Играет %s</string>
+    <string name="your_turn_title">Ваш ход!</string>
 
 </resources>

@@ -198,7 +198,7 @@
             android:textColor="@color/black_000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_turn_title" />
+            android:text="@string/your_word_title" />
     </LinearLayout>
 
     <FrameLayout

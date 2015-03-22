@@ -44,7 +44,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Extra
     boolean continueGame;
-    // номер раздачи начиная с 0
+    // номер раздачи начиная с 0 - Обяз игрока, 1 - обяз андроида и тд
     @InstanceState
     int razdacha = 0;
     // какой круг слов 1 или 2
@@ -138,22 +138,12 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         if (lapTurn == 1) {
             chosenKozir = firstLapKozirCard.getSuit();
             // todo добавить возможность менять семерку на текущий козырь на первом кругу
+            startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
         } else if (lapTurn == 2) {
             if (chosenKozir == -1) {
                 Toast.makeText(this, "Выберите козырь!", Toast.LENGTH_SHORT).show();
             } else {
-                for (int i = 0; i < 7; i++) {
-                    if (i < 3)
-                        androidCardsList.add(remainingCardsList.get(i));
-                    else if (i > 2 && i < 6)
-                        playerCardsList.add(remainingCardsList.get(i));
-                    else
-                        kolodaLastCard = remainingCardsList.get(i);
-                }
-                GameOneVsOneActivity_.intent(this).androidCardsList(androidCardsList).playerCardsList(playerCardsList)
-                        .firstLapKozirCard(firstLapKozirCard).chosenKozir(chosenKozir).razdacha(razdacha).currentLap(lapTurn)
-                        .kolodaLastCard(kolodaLastCard).whosPlaying(1).start();
-                finish();
+                startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
             }
         }
     }
@@ -161,10 +151,13 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     @Click(R.id.pass_button)
     void passButton_click() {
         if (lapTurn == 1) { // todo добавить проверку не играет ли бот на этом кругу
-            setSuitViewVisible();
-            lapTurn++;
+            if (razdacha % 2 != 0 && !willAndroidPlayOnFirstLap() || razdacha % 2 == 0 && !willAndroidPlayOnSecondLap()) {
+                setSuitViewVisible();
+                lapTurn++;
+            }
         } else if (lapTurn == 2) {
             // todo Android должен выбрать козырь в который он играет кроме firstLapKozir
+            Toast.makeText(this, "Android choosing козырь!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -230,7 +223,46 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         // sorts cards by suits
         Collections.sort(androidCardsList, new CardsComparator());
         Collections.sort(playerCardsList, new CardsComparator());
-        Toast.makeText(this, "size " + remainingCardsList.size(), Toast.LENGTH_SHORT).show();
+
+        if (razdacha % 2 == 0) { // если обяз у Игрока, а первое слово у Андроида
+            willAndroidPlayOnFirstLap();
+        }
+    }
+
+    private boolean willAndroidPlayOnFirstLap() {
+        // todo прописать логику выбора козыря для бота
+        int firstLapKozirSuit = firstLapKozirCard.getSuit();
+        int kozirSuitCardsCount = 0;
+        for (Card androidCard : androidCardsList) {
+            if (androidCard.getSuit() == firstLapKozirSuit) {
+                kozirSuitCardsCount++;
+            }
+        }
+        // если больше 3 карт или если обяз у андроида и больше 2х козырных карт
+        if (kozirSuitCardsCount > 3 || kozirSuitCardsCount > 2 && razdacha % 2 != 0) {
+            chosenKozir = firstLapKozirSuit;
+            // todo добавить какой-то эффект, чтобы было видно, что андроид играет на первом кругу
+            startGameOneVsOneActivity(GameHelper.ANDROID_IS_PLAYING);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean willAndroidPlayOnSecondLap() {
+        // todo прописать логику выбора козыря на втором кругу
+        if (false) {
+            int chosenKozirSuit = firstLapKozirCard.getSuit();
+            if (chosenKozirSuit == Card.CHIRVA_SUIT)
+                chosenKozirSuit = Card.PIKA_SUIT;
+            else
+                chosenKozirSuit++;
+
+            chosenKozir = chosenKozirSuit;
+            // todo добавить какой-то эффект, чтобы было видно, что андроид играет на втором кругу
+            startGameOneVsOneActivity(GameHelper.ANDROID_IS_PLAYING);
+            return true;
+        }
+        return false;
     }
 
     private void displayViewsSetup() {
@@ -267,6 +299,21 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
                     break;
             }
         }
+    }
+
+    private void startGameOneVsOneActivity(int whosPlaying) {
+        for (int i = 0; i < 7; i++) {
+            if (i < 3)
+                androidCardsList.add(remainingCardsList.get(i));
+            else if (i > 2 && i < 6)
+                playerCardsList.add(remainingCardsList.get(i));
+            else
+                kolodaLastCard = remainingCardsList.get(i);
+        }
+        GameOneVsOneActivity_.intent(this).androidCardsList(androidCardsList).playerCardsList(playerCardsList)
+                .firstLapKozirCard(firstLapKozirCard).chosenKozir(chosenKozir).razdacha(razdacha)
+                .kolodaLastCard(kolodaLastCard).whosPlaying(whosPlaying).start();
+        finish();
     }
 
     private void setSuitViewVisible() {

@@ -15,6 +15,9 @@ public class GameHelper {
     public static final int KOZIR_CHOOSE_ONE_VS_ONE_STATE = 1;
     public static final int GAME_ONE_VS_ONE_STATE = 2;
 
+    public static final int ANDROID_IS_PLAYING = 0;
+    public static final int PLAYER_IS_PLAYING = 1;
+
     public static final String ANDROID_CARDS_LIST_PREF = "androidCardsList";
     public static final String PLAYER_CARDS_LIST_PREF = "playerCardsList";
     public static final String REMAINING_CARDS_LIST_PREF = "remainingCardsList";
