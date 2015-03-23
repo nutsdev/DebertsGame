@@ -49,7 +49,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     int razdacha = 0;
     // какой круг слов 1 или 2
     @InstanceState
-    int lapTurn = 0;
+    int currentLap = 0;
     // выбранный козырь
     @InstanceState
     int chosenKozir = -1;
@@ -135,11 +135,11 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Click(R.id.play_button)
     void playButton_click() {
-        if (lapTurn == 0) {
+        if (currentLap == 0) {
             chosenKozir = firstLapKozirCard.getSuit();
             // todo добавить возможность менять семерку на текущий козырь на первом кругу
             startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
-        } else if (lapTurn == 1) {
+        } else if (currentLap == 1) {
             if (chosenKozir == -1) {
                 Toast.makeText(this, "Выберите козырь!", Toast.LENGTH_SHORT).show();
             } else {
@@ -150,12 +150,12 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     @Click(R.id.pass_button)
     void passButton_click() {
-        if (lapTurn == 0) { // todo добавить проверку не играет ли бот на этом кругу
+        if (currentLap == 0) { // todo добавить проверку не играет ли бот на этом кругу
             if (razdacha % 2 != 0 && !willAndroidPlayOnFirstLap() || razdacha % 2 == 0 && !willAndroidPlayOnSecondLap()) {
                 setSuitViewVisible();
-                lapTurn++;
+                currentLap++;
             }
-        } else if (lapTurn == 1) {
+        } else if (currentLap == 1) {
             // todo Android должен выбрать козырь в который он играет кроме firstLapKozir
             Toast.makeText(this, "Android choosing козырь!", Toast.LENGTH_SHORT).show();
         }
@@ -190,7 +190,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
         gameSettings.firstLapKozirCard().put(firstLapKozirCard.getValue());
         gameSettings.razdacha().put(razdacha);
-        gameSettings.currentLap().put(lapTurn);
+        gameSettings.currentLap().put(currentLap);
         gameSettings.isGameSaved().put(1);
     }
 
@@ -201,7 +201,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
         firstLapKozirCard = new Card(gameSettings.firstLapKozirCard().get());
         razdacha = gameSettings.razdacha().get();
-        lapTurn = gameSettings.currentLap().get();
+        currentLap = gameSettings.currentLap().get();
     }
 
     private void firstLaunchInit() {
@@ -281,7 +281,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
         else
             objaz_textView.setText(getString(R.string.objaz_title, getString(R.string.android_player_name_title)));
 
-        if (lapTurn == 1) {
+        if (currentLap == 1) {
             setSuitViewVisible();
 
             switch (chosenKozir) {

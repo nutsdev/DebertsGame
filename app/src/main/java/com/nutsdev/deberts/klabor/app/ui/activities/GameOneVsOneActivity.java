@@ -38,6 +38,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
 
     public static final boolean isDebug = true; // todo remove on release
 
+    public static final int POHODIT_ACTION_BUTTON_STATE = 0;
+    public static final int OTBOY_ACTION_BUTTON_STATE = 1;
+
     @Pref
     GameSettings_ gameSettings;
 
@@ -47,6 +50,8 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     int whosPlaying; // 0 - android, 1 - player
     @InstanceState
     int currentLap = 0;
+    @InstanceState
+    int actionButtonState = POHODIT_ACTION_BUTTON_STATE;
     @Extra
     int razdacha;
     @Extra
@@ -129,15 +134,25 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     @Click(R.id.action_button)
     void actionButton_click() {
         // todo обьеденить функционал походить и отбой
-        if (selectedCard != null) {
-            currentLap++;
-            playerCardsList.remove(selectedCard);
-            playerTurnCard_imageView.setImageResource(CardDetector.getCardDrawable(selectedCard));
+        if (actionButtonState == POHODIT_ACTION_BUTTON_STATE) {
+            if (selectedCard != null) {
+                currentLap++;
+                playerCardsList.remove(selectedCard);
+                playerTurnCard_imageView.setImageResource(CardDetector.getCardDrawable(selectedCard));
 
-            selectedCard = null;
-            selectedCardInt = -1;
-        } else {
-            Toast.makeText(this, "Выберите карту, которой хотите походить!", Toast.LENGTH_SHORT).show();
+                selectCard(-1);
+                setCardClickable(false);
+                actionButtonState = OTBOY_ACTION_BUTTON_STATE;
+                checkButtonState();
+                checkCardsState();
+                displayPlayersCards();
+            } else {
+                Toast.makeText(this, "Выберите карту, которой хотите походить!", Toast.LENGTH_SHORT).show();
+            }
+        } else if (actionButtonState == OTBOY_ACTION_BUTTON_STATE){
+            setCardClickable(true);
+            actionButtonState = POHODIT_ACTION_BUTTON_STATE;
+            checkButtonState();
         }
     }
 
@@ -218,16 +233,8 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         Collections.sort(androidCardsList, new CardsComparator());
         Collections.sort(playerCardsList, new CardsComparator());
 
-        int cardArrayLength = detectCardArrayLength();
         // displaying player's cards and kozir
-        for (int i = 0; i < cardArrayLength; i++) {
-            playerCards_ImageViewArray.get(i).setVisibility(View.VISIBLE);
-            playerCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(playerCardsList.get(i)));
-
-            androidCards_ImageViewArray.get(i).setVisibility(View.VISIBLE);
-            if (isDebug)
-                androidCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(androidCardsList.get(i)));
-        }
+        displayPlayersCards();
         firstLapKozirCard_imageView.setImageResource(CardDetector.getCardDrawable(firstLapKozirCard));
         kolodaLastCard_imageView.setImageResource(CardDetector.getCardDrawable(kolodaLastCard));
 
@@ -253,6 +260,126 @@ public class GameOneVsOneActivity extends ActionBarActivity {
             whosPlaying_textView.setText(getString(R.string.playing_is_title, getString(R.string.android_player_name_title)));
         else
             whosPlaying_textView.setText(getString(R.string.playing_is_title, playerName));
+
+        checkButtonState();
+    }
+
+    private void displayPlayersCards() {
+        int cardArrayLength = detectCardArrayLength();
+
+        for (int i = 0; i < cardArrayLength; i++) {
+            playerCards_ImageViewArray.get(i).setVisibility(View.VISIBLE);
+            playerCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(playerCardsList.get(i)));
+
+            androidCards_ImageViewArray.get(i).setVisibility(View.VISIBLE);
+            if (isDebug)
+                androidCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(androidCardsList.get(i)));
+        }
+    }
+
+    private void checkButtonState() {
+        if (actionButtonState == POHODIT_ACTION_BUTTON_STATE) {
+            action_button.setText(getString(R.string.pohodit_button_title));
+            setCardClickable(true);
+        }
+        else if (actionButtonState == OTBOY_ACTION_BUTTON_STATE) {
+            action_button.setText(getString(R.string.otboy_button_title));
+            setCardClickable(false);
+        }
+    }
+
+    private void checkCardsState() {
+    /*    if (currentLap == 0) {
+
+        } */
+        if (currentLap == 1) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+        }
+        else if (currentLap == 2) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+        }
+        else if (currentLap == 3) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(6).setVisibility(View.GONE);
+        }
+        else if (currentLap == 4) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(5).setVisibility(View.GONE);
+        }
+        else if (currentLap == 5) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(4).setVisibility(View.GONE);
+        }
+        else if (currentLap == 6) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(3).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(3).setVisibility(View.GONE);
+        }
+        else if (currentLap == 7) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(3).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(3).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(2).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(2).setVisibility(View.GONE);
+        }
+        else if (currentLap == 8) {
+            androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(8).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(7).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(6).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(5).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(4).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(3).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(3).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(2).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(2).setVisibility(View.GONE);
+            androidCards_ImageViewArray.get(1).setVisibility(View.GONE);
+            playerCards_ImageViewArray.get(1).setVisibility(View.GONE);
+        }
     }
 
     private int detectCardArrayLength() { // todo продумать шаг currentLap 1 или 2
@@ -280,15 +407,29 @@ public class GameOneVsOneActivity extends ActionBarActivity {
 
     private void selectCard(int position) {
         selectedCardInt = position;
-        for (int i = 0; i < 9; i++) {
-            if (i == position) {
-                playerCards_ImageViewArray.get(position).setScaleX(1.5f);
-                playerCards_ImageViewArray.get(position).setScaleY(1.5f);
-                selectedCard = playerCardsList.get(position);
-            } else {
+        if (position == -1) { // remove selection
+            for (int i = 0; i < 9; i++) {
                 playerCards_ImageViewArray.get(i).setScaleX(1);
                 playerCards_ImageViewArray.get(i).setScaleY(1);
             }
+            selectedCard = null;
+        } else {
+            for (int i = 0; i < 9; i++) {
+                if (i == position) {
+                    playerCards_ImageViewArray.get(position).setScaleX(1.5f);
+                    playerCards_ImageViewArray.get(position).setScaleY(1.5f);
+                    selectedCard = playerCardsList.get(position);
+                } else {
+                    playerCards_ImageViewArray.get(i).setScaleX(1);
+                    playerCards_ImageViewArray.get(i).setScaleY(1);
+                }
+            }
+        }
+    }
+
+    private void setCardClickable(boolean clickable) {
+        for (int i = 0; i < 9; i++) {
+            playerCards_ImageViewArray.get(i).setClickable(clickable);
         }
     }
 

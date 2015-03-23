@@ -252,6 +252,13 @@
         android:layout_marginTop="43dp"
         android:id="@+id/linearLayout6">
 
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/playing_is_title"
+            android:id="@+id/whosPlaying_textView" />
+
         <LinearLayout
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -272,13 +279,6 @@
                 android:layout_height="30dp"
                 android:id="@+id/chosenKozir_imageView" />
         </LinearLayout>
-
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="@string/playing_is_title"
-            android:id="@+id/whosPlaying_textView" />
 
         <TextView
             android:gravity="center_vertical"
