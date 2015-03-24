@@ -64,6 +64,8 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     ArrayList<Card> playerCardsList;
     @Extra
     ArrayList<Card> androidCardsList;
+    @InstanceState
+    ArrayList<Card> lastVzyatkiCardsList = new ArrayList<>();
 
     @InstanceState
     int selectedCardInt = -1;
@@ -78,6 +80,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     Button action_button;
 
     @ViewById
+    View lastVzyatka_view;
+
+    @ViewById
     ImageView chosenKozir_imageView;
     @ViewById
     ImageView playerTurnCard_imageView;
@@ -87,6 +92,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     ImageView kolodaLastCard_imageView;
     @ViewById
     ImageView firstLapKozirCard_imageView;
+
+    @ViewsById({R.id.playerLastVzyatkaCard_imageView, R.id.androidLastVzyatkaCard_imageView})
+    List<ImageView> lastVzyatkiCards_ImageViewArray;
 
     @ViewsById({R.id.enemyCard1_imageView, R.id.enemyCard2_imageView, R.id.enemyCard3_imageView, R.id.enemyCard4_imageView,
             R.id.enemyCard5_imageView, R.id.enemyCard6_imageView, R.id.enemyCard7_imageView, R.id.enemyCard8_imageView,
@@ -139,6 +147,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
                 currentLap++;
                 playerCardsList.remove(selectedCard);
                 playerTurnCard_imageView.setImageResource(CardDetector.getCardDrawable(selectedCard));
+                lastVzyatkiCardsList.add(selectedCard);
+                lastVzyatkiCardsList.add(androidCardsList.get(androidCardsList.size() - 1)); // todo add logic for choosing card
+                androidCardsList.remove(androidCardsList.size() - 1);
 
                 selectCard(-1);
                 setCardClickable(false);
@@ -153,6 +164,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
             setCardClickable(true);
             actionButtonState = POHODIT_ACTION_BUTTON_STATE;
             checkButtonState();
+            displayLastVzyatkaView();
         }
     }
 
@@ -234,6 +246,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         Collections.sort(playerCardsList, new CardsComparator());
 
         // displaying player's cards and kozir
+        displayLastVzyatkaView();
         displayPlayersCards();
         firstLapKozirCard_imageView.setImageResource(CardDetector.getCardDrawable(firstLapKozirCard));
         kolodaLastCard_imageView.setImageResource(CardDetector.getCardDrawable(kolodaLastCard));
@@ -264,6 +277,20 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         checkButtonState();
     }
 
+    private void displayLastVzyatkaView() {
+        int cardArrayLength = detectCardArrayLength();
+
+        if (cardArrayLength == 9) {
+            lastVzyatka_view.setVisibility(View.GONE);
+        } else {
+            lastVzyatka_view.setVisibility(View.VISIBLE);
+            for (int i = 0; i < 2; i++) { // todo add saving last vzyatka to preferences
+                lastVzyatkiCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(lastVzyatkiCardsList.get(i)));
+            }
+            lastVzyatkiCardsList.clear();
+        }
+    }
+
     private void displayPlayersCards() {
         int cardArrayLength = detectCardArrayLength();
 
@@ -289,9 +316,6 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     }
 
     private void checkCardsState() {
-    /*    if (currentLap == 0) {
-
-        } */
         if (currentLap == 1) {
             androidCards_ImageViewArray.get(8).setVisibility(View.GONE);
             playerCards_ImageViewArray.get(8).setVisibility(View.GONE);

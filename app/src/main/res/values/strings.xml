@@ -25,5 +25,6 @@
     <string name="kozir_title">Козырь</string>
     <string name="playing_is_title">Играет %s</string>
     <string name="your_turn_title">Ваш ход!</string>
+    <string name="last_vzyatka_title">Последняя взятка</string>
 
 </resources>
