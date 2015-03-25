@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +14,9 @@ import com.nutsdev.deberts.klabor.app.entities.Card;
 import com.nutsdev.deberts.klabor.app.settings.GameSettings_;
 import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
+import com.nutsdev.deberts.klabor.app.utils.CardsList;
 import com.nutsdev.deberts.klabor.app.utils.GameHelper;
+import com.nutsdev.deberts.klabor.app.utils.UiUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -73,16 +74,28 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     Card firstLapKozirCard;
     @InstanceState
     Card kolodaLastCard;
+    @InstanceState
+    Card sevenCard;
 
 
     @ViewById
-    LinearLayout suits_view;
+    View suits_view;
+    @ViewById
+    View changeSeven_view;
+    @ViewById
+    View playPassButtons_view;
 
     @ViewById
     Button pass_button;
+    @ViewById
+    Button yes_button;
+    @ViewById
+    Button no_button;
 
     @ViewById
     TextView objaz_textView;
+    @ViewById
+    TextView changeSeven_textView;
 
     @ViewById
     ImageView kolodaKozir_imageView;
@@ -133,15 +146,31 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     /* clicks */
 
+    @Click(R.id.yes_button)
+    void yes_button_click() {
+        playerCardsList.remove(sevenCard);
+        playerCardsList.add(firstLapKozirCard);
+        firstLapKozirCard = sevenCard;
+        startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
+    }
+
+    @Click(R.id.no_button)
+    void no_button_click() {
+        startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
+    }
+
     @Click(R.id.play_button)
     void playButton_click() {
         if (currentLap == 0) {
             chosenKozir = firstLapKozirCard.getSuit();
-            // todo добавить возможность менять семерку на текущий козырь на первом кругу
-            startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
+            if (changeSevenCard()) {
+                return;
+            } else {
+                startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
+            }
         } else if (currentLap == 1) {
             if (chosenKozir == -1) {
-                Toast.makeText(this, "Выберите козырь!", Toast.LENGTH_SHORT).show();
+                UiUtils.showCenteredToast(this, getString(R.string.choose_kozir_toast));
             } else {
                 startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
             }
@@ -182,6 +211,42 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
     }
 
     /* private methods */
+
+    private boolean changeSevenCard() {
+        int cardSuit = -1;
+
+        for (Card card : playerCardsList) {
+            cardSuit = card.getSuit();
+            if (chosenKozir == cardSuit && card.getValue() == CardsList.PIKA_SEVEN) {
+                sevenCard = card;
+                Toast.makeText(this, "GOT PIKA SEVEN", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            else if (chosenKozir == cardSuit && card.getValue() == CardsList.BUBNA_SEVEN) {
+                sevenCard = card;
+                Toast.makeText(this, "GOT BUBNA SEVEN", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            else if (chosenKozir == cardSuit && card.getValue() == CardsList.KRESTA_SEVEN) {
+                sevenCard = card;
+                Toast.makeText(this, "GOT KRESTA SEVEN", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            else if (chosenKozir == cardSuit && card.getValue() == CardsList.CHIRVA_SEVEN) {
+                sevenCard = card;
+                Toast.makeText(this, "GOT CHIRVA SEVEN", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+
+        if (sevenCard != null) {
+            changeSeven_textView.setVisibility(View.VISIBLE);
+            changeSeven_view.setVisibility(View.VISIBLE);
+            playPassButtons_view.setVisibility(View.GONE);
+            return true;
+        }
+        return false;
+    }
 
     private void saveGameState() {
         GameHelper.saveCardsToPreferences(this, androidCardsList, GameHelper.ANDROID_CARDS_LIST_PREF);
@@ -231,6 +296,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
 
     private boolean willAndroidPlayOnFirstLap() {
         // todo прописать логику выбора козыря для бота
+        // todo добавить возможность менять семерку у бота на текущий козырь на первом кругу
         int firstLapKozirSuit = firstLapKozirCard.getSuit();
         int kozirSuitCardsCount = 0;
         for (Card androidCard : androidCardsList) {

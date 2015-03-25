@@ -26,5 +26,9 @@
     <string name="playing_is_title">Играет %s</string>
     <string name="your_turn_title">Ваш ход!</string>
     <string name="last_vzyatka_title">Последняя взятка</string>
+    <string name="change_seven_title">Поменять семерку?</string>
+    <string name="yes_title">Да</string>
+    <string name="no_title">Нет</string>
+    <string name="choose_kozir_toast">Выберите козырь!</string>
 
 </resources>

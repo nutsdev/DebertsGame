@@ -21,6 +21,7 @@ public class GameHelper {
     public static final String ANDROID_CARDS_LIST_PREF = "androidCardsList";
     public static final String PLAYER_CARDS_LIST_PREF = "playerCardsList";
     public static final String REMAINING_CARDS_LIST_PREF = "remainingCardsList";
+    public static final String LAST_VZYATKA_CARDS_LIST_PREF = "lastVzyatkaCardsList";
 
     public static boolean saveCardsToPreferences(Context context, ArrayList<Card> cardsList, String listName) {
         SharedPreferences prefs = context.getSharedPreferences(listName, Context.MODE_PRIVATE);

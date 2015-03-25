@@ -100,27 +100,78 @@
     </LinearLayout>
 
     <LinearLayout
+        android:gravity="center"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout2">
 
-        <Button
-            android:layout_marginRight="5dp"
+        <TextView
+            android:id="@+id/changeSeven_textView"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/play_button_title"
-            android:id="@+id/play_button" />
+            android:text="@string/change_seven_title" />
 
-        <Button
-            android:layout_marginLeft="5dp"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pass_button_title"
-            android:id="@+id/pass_button" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                tools:visibility="visible"
+                android:visibility="visible"
+                android:id="@+id/playPassButtons_view"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/play_button_title"
+                    android:id="@+id/play_button" />
+
+                <Button
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pass_button_title"
+                    android:id="@+id/pass_button" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                tools:visibility="visible"
+                android:visibility="gone"
+                android:id="@+id/changeSeven_view"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_title"
+                    android:id="@+id/yes_button" />
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_title"
+                    android:id="@+id/no_button" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

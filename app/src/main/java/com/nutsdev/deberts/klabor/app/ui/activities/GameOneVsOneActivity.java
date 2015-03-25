@@ -65,7 +65,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     @Extra
     ArrayList<Card> androidCardsList;
     @InstanceState
-    ArrayList<Card> lastVzyatkiCardsList = new ArrayList<>();
+    ArrayList<Card> lastVzyatkaCardsList = new ArrayList<>();
 
     @InstanceState
     int selectedCardInt = -1;
@@ -94,7 +94,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     ImageView firstLapKozirCard_imageView;
 
     @ViewsById({R.id.playerLastVzyatkaCard_imageView, R.id.androidLastVzyatkaCard_imageView})
-    List<ImageView> lastVzyatkiCards_ImageViewArray;
+    List<ImageView> lastVzyatkaCards_ImageViewArray;
 
     @ViewsById({R.id.enemyCard1_imageView, R.id.enemyCard2_imageView, R.id.enemyCard3_imageView, R.id.enemyCard4_imageView,
             R.id.enemyCard5_imageView, R.id.enemyCard6_imageView, R.id.enemyCard7_imageView, R.id.enemyCard8_imageView,
@@ -147,8 +147,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
                 currentLap++;
                 playerCardsList.remove(selectedCard);
                 playerTurnCard_imageView.setImageResource(CardDetector.getCardDrawable(selectedCard));
-                lastVzyatkiCardsList.add(selectedCard);
-                lastVzyatkiCardsList.add(androidCardsList.get(androidCardsList.size() - 1)); // todo add logic for choosing card
+                lastVzyatkaCardsList.clear();
+                lastVzyatkaCardsList.add(selectedCard);
+                lastVzyatkaCardsList.add(androidCardsList.get(androidCardsList.size() - 1)); // todo add logic for choosing card
                 androidCardsList.remove(androidCardsList.size() - 1);
 
                 selectCard(-1);
@@ -218,6 +219,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     private void saveGameState() {
         GameHelper.saveCardsToPreferences(this, androidCardsList, GameHelper.ANDROID_CARDS_LIST_PREF);
         GameHelper.saveCardsToPreferences(this, playerCardsList, GameHelper.PLAYER_CARDS_LIST_PREF);
+        GameHelper.saveCardsToPreferences(this, lastVzyatkaCardsList, GameHelper.LAST_VZYATKA_CARDS_LIST_PREF);
 
         gameSettings.firstLapKozirCard().put(firstLapKozirCard.getValue());
         gameSettings.kolodaLastCard().put(kolodaLastCard.getValue());
@@ -231,6 +233,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     private void restoreGameState() {
         androidCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.ANDROID_CARDS_LIST_PREF);
         playerCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.PLAYER_CARDS_LIST_PREF);
+        lastVzyatkaCardsList = GameHelper.restoreCardsFromPreferences(this, GameHelper.LAST_VZYATKA_CARDS_LIST_PREF);
 
         firstLapKozirCard = new Card(gameSettings.firstLapKozirCard().get());
         kolodaLastCard = new Card(gameSettings.kolodaLastCard().get());
@@ -284,10 +287,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
             lastVzyatka_view.setVisibility(View.GONE);
         } else {
             lastVzyatka_view.setVisibility(View.VISIBLE);
-            for (int i = 0; i < 2; i++) { // todo add saving last vzyatka to preferences
-                lastVzyatkiCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(lastVzyatkiCardsList.get(i)));
+            for (int i = 0; i < 2; i++) {
+                lastVzyatkaCards_ImageViewArray.get(i).setImageResource(CardDetector.getCardDrawable(lastVzyatkaCardsList.get(i)));
             }
-            lastVzyatkiCardsList.clear();
         }
     }
 
@@ -431,7 +433,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
 
     private void selectCard(int position) {
         selectedCardInt = position;
-        if (position == -1) { // remove selection
+        if (position == -1) { // removing selection
             for (int i = 0; i < 9; i++) {
                 playerCards_ImageViewArray.get(i).setScaleX(1);
                 playerCards_ImageViewArray.get(i).setScaleY(1);
