@@ -41,6 +41,9 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     public static final int POHODIT_ACTION_BUTTON_STATE = 0;
     public static final int OTBOY_ACTION_BUTTON_STATE = 1;
 
+    public static final int ANDROID_TURN = 0;
+    public static final int PLAYER_TURN = 1;
+
     @Pref
     GameSettings_ gameSettings;
 
@@ -48,6 +51,8 @@ public class GameOneVsOneActivity extends ActionBarActivity {
     boolean continueGame;
     @Extra
     int whosPlaying; // 0 - android, 1 - player
+    @InstanceState
+    int whoseTurn; // 0 - android, 1 - player
     @InstanceState
     int currentLap = 0;
     @InstanceState
@@ -122,6 +127,10 @@ public class GameOneVsOneActivity extends ActionBarActivity {
             restoreGameState();
 
         displayViewsSetup();
+        detectWhoseTurn();
+        if (whoseTurn == ANDROID_TURN) {
+            // todo дописать логику хода андроида
+        }
     }
 
     @Override
@@ -226,6 +235,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         gameSettings.razdacha().put(razdacha);
         gameSettings.currentLap().put(currentLap);
         gameSettings.whosPlaying().put(whosPlaying);
+        gameSettings.whoseTurn().put(whoseTurn);
         gameSettings.chosenKozir().put(chosenKozir);
         gameSettings.isGameSaved().put(2);
     }
@@ -240,6 +250,7 @@ public class GameOneVsOneActivity extends ActionBarActivity {
         razdacha = gameSettings.razdacha().get();
         currentLap = gameSettings.currentLap().get();
         whosPlaying = gameSettings.whosPlaying().get();
+        whoseTurn = gameSettings.whoseTurn().get();
         chosenKozir = gameSettings.chosenKozir().get();
     }
 
@@ -259,13 +270,13 @@ public class GameOneVsOneActivity extends ActionBarActivity {
                 chosenKozir_imageView.setImageResource(R.drawable.pika_suit);
                 break;
             case Card.BUBNA_SUIT:
-                chosenKozir_imageView.setImageResource(R.drawable.bubna_suit);;
+                chosenKozir_imageView.setImageResource(R.drawable.bubna_suit);
                 break;
             case Card.KRESTA_SUIT:
-                chosenKozir_imageView.setImageResource(R.drawable.kresta_suit);;
+                chosenKozir_imageView.setImageResource(R.drawable.kresta_suit);
                 break;
             case Card.CHIRVA_SUIT:
-                chosenKozir_imageView.setImageResource(R.drawable.chirva_suit);;
+                chosenKozir_imageView.setImageResource(R.drawable.chirva_suit);
                 break;
         }
 
@@ -405,6 +416,14 @@ public class GameOneVsOneActivity extends ActionBarActivity {
             playerCards_ImageViewArray.get(2).setVisibility(View.GONE);
             androidCards_ImageViewArray.get(1).setVisibility(View.GONE);
             playerCards_ImageViewArray.get(1).setVisibility(View.GONE);
+        }
+    }
+
+    private void detectWhoseTurn() {
+        if (razdacha % 2 == 0) {
+            whoseTurn = 0;
+        } else {
+            whoseTurn = 1;
         }
     }
 

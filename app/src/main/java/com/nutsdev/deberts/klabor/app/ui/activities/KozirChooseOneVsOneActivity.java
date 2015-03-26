@@ -16,7 +16,7 @@ import com.nutsdev.deberts.klabor.app.utils.CardDetector;
 import com.nutsdev.deberts.klabor.app.utils.CardsComparator;
 import com.nutsdev.deberts.klabor.app.utils.CardsList;
 import com.nutsdev.deberts.klabor.app.utils.GameHelper;
-import com.nutsdev.deberts.klabor.app.utils.UiUtils;
+import com.nutsdev.deberts.klabor.app.utils.ToastHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -170,7 +170,7 @@ public class KozirChooseOneVsOneActivity extends ActionBarActivity {
             }
         } else if (currentLap == 1) {
             if (chosenKozir == -1) {
-                UiUtils.showCenteredToast(this, getString(R.string.choose_kozir_toast));
+                ToastHelper.showCenteredToast(this, getString(R.string.choose_kozir_toast));
             } else {
                 startGameOneVsOneActivity(GameHelper.PLAYER_IS_PLAYING);
             }

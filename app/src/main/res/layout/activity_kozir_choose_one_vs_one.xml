@@ -110,6 +110,7 @@
         android:id="@+id/linearLayout2">
 
         <TextView
+            android:textColor="@color/black_000000"
             android:id="@+id/changeSeven_textView"
             tools:visibility="visible"
             android:visibility="gone"

@@ -21,6 +21,8 @@ public interface GameSettings {
     int kolodaLastCard();
     // who is playing 0 - android, 1 - player
     int whosPlaying();
+    // whose turn 0 - android, 1 - player
+    int whoseTurn();
     // chosen kozir
     int chosenKozir();
     // which lap of words in ChooseKozirActivity
